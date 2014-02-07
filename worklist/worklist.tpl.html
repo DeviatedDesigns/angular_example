@@ -1,0 +1,19 @@
+<div>
+    <div id="main-container">
+        <div id="alert" class="error" ng-hide="!error">
+            <div class="alert alert-error">
+                {{errormessage}}
+            </div>
+        </div>    
+        <div ng-include="'partials/worklistSideNav.tpl.html'"></div>
+        <!-- worklist container -->
+        <div id="rightdivcontainer" class="border-pod-blue" >
+            <!-- <div class="gridStyle" ng-grid="gridOptions"></div> -->
+            <!-- Worklist Summary -->
+
+            <div id="worklistsummary" class="pod-top" ui-view="worklist"></div> <!-- end #worklistsummary -->
+
+        </div><!-- end #rightdivcontainer -->
+        <br class="clearfix" />
+    </div><!-- end #main-container -->
+</div>
