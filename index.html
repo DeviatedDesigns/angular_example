@@ -1,0 +1,183 @@
+  <!DOCTYPE html>
+<html ng-app="ambProvPrivate" ng-controller="AppCtrl">
+  <head>
+      <title>Connect Center</title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <!-- font awesome from BootstrapCDN -->
+      <link href="assets/font-awesome.css" rel="stylesheet">
+
+      <!-- begin compiled CSS --><% styles.forEach( function ( file ) { %>
+      <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+      <!-- end compiled CSS -->
+
+      <!--[if IE 7>
+      <link rel="stylesheet" href="assets/font-awesome-ie7.min.css />
+      <![endif]-->
+
+      <!--[if lt IE 9]>
+      <script src="vendor/ie-fix/ie9.js"></script>
+      <script src="vendor/ie-fix/html5shiv.js"></script>
+
+      <script src="vendor/ng-file-upload/FileAPI.min.js"></script>
+      <script src="vendor/ng-file-upload/FileAPI.flash.swf"></script>
+      <script src="vendor/ng-file-upload/angular-file-upload-shim.min.js"></script>
+      
+      <![endif]-->
+      <!--[if lte IE 8]>
+      <script>
+          if (!Array.prototype.forEach) {
+              Array.prototype.forEach = function(fn, scope) {
+                  for(var i = 0, len = this.length; i < len; ++i) {
+                      fn.call(scope, this[i], i, this);
+                  }
+              }
+          };          
+      </script>
+      <![endif]-->
+
+      <% scripts.forEach( function ( file ) { %>
+      <script type="text/javascript" src="<%= file %>"></script><% }); %>
+      
+      
+
+  </head>
+  <body class="app">
+    <section>
+        <div class="container">
+            <div class="masthead">
+                <h3 class="siteTitle pull-left">Connect Center</h3>
+                <div class="pull-right">
+                  <h2 class="userName">{{userInfo.user.firstName}} {{userInfo.user.lastName}}</h2>
+                  <a ui-sref="my_settings({ userID: userInfo.user.userName })" class="my-settings-btn"></a>
+                </div>
+                <div class="navbar navbar-inverse clearfix">
+                    <div class="navbar-inner">
+                        <nav class="pull-left">
+                            <ul class="nav content">
+                                <li ui-route="/home" ng-class="{active:$uiRoute}">
+                                    <a href="#/home">
+                                        Home
+                                    </a>
+                                </li>
+                                <li ui-route="/(worklist/summary|worklist/enrollment|worklist/incomplete|worklist/rejected|worklist/denied|worklist/submitted|worklist/myfollowup)" ng-class="{active:$uiRoute}">
+                                    <a href="#/worklist/summary">
+                                        My Worklist
+                                    </a>
+                                </li>
+                                <li ui-route="/myclaims|createclaims/[a-zA-Z0-9\/\_\-]*|claim1500" ng-class="{active:$uiRoute}">
+                                    <a ui-sref="myclaims.claimsSearch">
+                                        My Claims
+                                    </a>
+                                    <div class="subNavTop"></div>
+                                    <ul>
+                                        <li ui-route="/createclaims" ng-class="{active:$uiRoute}">
+                                            <a href="#" ng-click="openCreateClaim()">
+                                                Create a Claim
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li ui-route="/(remitsearch|remitsearchresults|remitdetails[a-zA-Z0-9\/\_\-]*)" ng-class="{active:$uiRoute}">
+                                    <a href="#/remitsearch">
+                                        My Remits
+                                    </a>
+                                </li>
+
+                                <li class="hasSubNav" ui-route="/(payer-reports|relayHealth-reports)" ng-class="{active:$uiRoute}">
+
+                                    <a href="#" onclick="return false">
+                                        <span class="">My Reports</span>
+                                    </a>
+                                    <div class="subNavTop"></div>
+                                    <ul>
+
+                                        <li>
+                                            <a href="#/payer-reports">Payer Reports</a>
+                                        </li>
+                                        <li>
+                                            <a href="#/relayHealth-reports">RelayHealth Reports</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li ui-route="/(payers|enrollment)" ng-class="{active:$uiRoute}" class="hasSubNav">
+                                    <div class="subNavTop"></div>
+                                    <a href="#" onclick="return false">
+                                        <span class="">Payer Tools</span>
+                                    </a>
+
+
+                                    <ul>
+                                        <li>
+                                            <a href="#/enrollment">Enrollments</a>
+                                        </li>
+                                        <li>
+                                            <a href="#/payers">Payer Search</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li ui-route="/analytics" ng-show="userInfo.user.analyticsEnabled" ng-class="{active:$uiRoute}">
+                                    <a href="{{rfidURL}}" ng-click="rfid()" target="_self">
+                                        Analytics
+                                    </a>
+                                </li>
+                                <li ui-route="/help" ng-class="{active:$uiRoute}" class="hasSubNav">
+                                    <div class="subNavTop"></div>
+                                    <a href="#" onclick="return false">
+                                        <span class="">Help Center</span>
+                                    </a>
+
+                                    <ul>
+                                        <li>
+                                            <app-chat>Online Chat</app-chat>
+                                        </li>
+                                        <li>
+                                            <a href="#/support-ticket/create">Open a Support Ticket</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="hasSubNav" ng-show="userInfo.user.isAdmin" ui-route="/(provider[a-zA-Z0-9\/\_\-]*|account[a-zA-Z0-9\/\_\-]*|user-management[a-zA-Z0-9\/]*)" ng-class="{active:$uiRoute}">
+
+                                    <a href="#" onclick="return false">
+                                        <span class="admin-top-menu">Admin</span>
+                                    </a>
+                                    <div class="subNavTop"></div>
+                                    <ul>
+
+                                        <li>
+                                            <a href="#/account/features">Account Management</a>
+                                        </li>
+                                        <li>
+                                            <a href="#/providers">Provider Management</a>
+                                        </li>
+                                        <li>
+                                            <a href="#/user-management">User Management</a>
+                                        </li>
+                                    </ul>
+                                  </li>
+                            </ul>
+                        </nav>
+                        <div class="pull-right">
+                            <form id="logoutForm" method="POST" action="../account/logout.html">
+                                <button class="btn btn-primary pull-right" type="submit" type="button" style="font-weight:normal;text-shadow:none">Log Out</button>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- end .navbar -->
+                
+                <div id="site-container" class="container-pad border-pod-top" ui-view="main"></div>
+            </div><!-- end .masthead -->
+
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-inner border-pod-bottom">
+                    <img class="pull-right" src="assets/images/logo.png">
+                    <p class="clearfix">Copyright 2013 RelayHealth. All Rights Reserved.</p>
+                  </div>
+                </div>
+            </footer>
+        </div>
+    </section>
+  </body>
+</html>
