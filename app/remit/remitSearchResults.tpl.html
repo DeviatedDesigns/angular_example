@@ -1,0 +1,14 @@
+<div>
+    <div id="remitSearchResults" class="progress-bar-container">
+        <div app-progress-bar ng-show="rSearchResults.active()"></div>
+        <div class="border-pod-top page-title">
+            <h6>Remit Search > Remit Search Results</h6>
+        </div> <!-- end #page-title -->
+        <div id="alert" class="error" ng-hide="!error">
+            <div class="alert alert-error">
+                {{errormessage}}
+            </div>
+        </div>      
+        <div class="gridStyle border-pod-bottom" ng-grid="gridRemitResults"></div>
+    </div>
+</div>

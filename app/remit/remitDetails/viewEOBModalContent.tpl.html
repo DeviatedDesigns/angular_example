@@ -1,0 +1,111 @@
+<!-- OVERLAY -->
+<div id="PrintMe">
+  <div id="EOB" class="overlay" style="">
+    <div id="modal">
+        <div class="page-title modal-header">
+            <h1 class="pull-left">Explanation of Benefits</h1>
+            <button class="pull-right" ng-click="cancel()">Close Window</button>
+        </div>     
+        <div class="clearfix padLeft10 padRight10">
+            <p class="pull-left">{{day | date:'MM/dd/yyyy'}}</p>
+            <button class="rhButton pull-right" print-Me>Print EOB</button>
+        </div>
+        <form class="clearfix">
+            <div class="modal-body">
+                <div class="column2 border-pod min130">
+                    <h2>Payer Information</h2>
+                    <ul>
+                        <li>Payer Name<span>{{remit.payorName}}</span></li>
+                        <li>Payer ID<span>{{remit.payorID}}</span></li>
+                    </ul>
+                </div>
+                <div class="column2 border-pod min130">
+                    <h2>Patient Information</h2>
+                    <ul>
+                        <li>Patient Name<span>{{claim.patientLast}}, {{claim.patientFirst}}</span></li>
+                        <li>Patient Account Number<span>{{claim.patientAccountNumber}}</span></li>
+                        <li>Insured ID<span>{{claim.patientInsuredID}}</span></li>
+                    </ul>
+                </div>
+                <div class="column2 border-pod min315">
+                    <h2>Provider Information</h2>
+                    <ul>
+                        <li>Billing Provider Name<span>{{remit.billingProviderName}}</span></li>
+                        <li>Billing Provider ID/NPI<span>{{remit.billingProviderID}}</span></li>
+                        <li>Billing Provider Tax ID<span>{{remit.billingProviderTaxID}}</span></li>
+                        <li>Check/EFT Number<span>{{remit.checkNumber}}</span></li>
+                        <li>Check Date<span>{{remit.checkDate}}</span></li>
+                   </ul>
+                </div>
+                <div class="column2 border-pod min315">
+                    <h2>Claim Information</h2>
+                    <ul>
+                        <li>Processed Date/Time<span>{{remit.processDate}}</span></li>
+                        <li>Type of Bill<span>{{}}</span></li>
+                        <li>Cost Report Day Count<span>{{}}</span></li>
+                        <li>DRG Code<span>{{}}</span></li>
+                        <li>Document Control Number<span>{{}}</span></li>
+                        <li>Plan ID<span>{{}}</span></li>
+                        <li>Crossover Carrier Name<span>{{}}</span></li>
+                        <li>Crossover Carrier ID Qualifier<span>{{}}</span></li>
+                        <li>Crossover Carrier ID<span>{{}}</span></li>
+                    </ul>
+                </div>
+                
+
+                <div id="chargeSummary">
+                    <h2 class="center">Charge/Payment Summary</h2>
+                    <div class="border-pod">
+                        <table class="dataTable">
+                            <thead>
+                                <tr>
+                                    <th class="">Service From</th>
+                                    <th class="">Total Billed</th>
+                                    <th class="">Total Adjustments</th>
+                                    <th class="">Amount Paid</th>
+                                    <th class="">Patient Responsibility</th>
+                                </tr>
+                            </thead>
+                            <tbody class="scrollContent">
+                                <tr ng-repeat="services in service" >
+                                    <td class="">{{services.serviceLines.serviceFrom}}</td>
+                                    <td class="">{{services.serviceLines.charge}}</td>
+                                    <td class="">{{services.serviceLines.adjustment}}</td>
+                                    <td class="">{{services.serviceLines.paid}}</td>
+                                    <td class="">{{}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+                </div>
+
+
+                <div id="adjustmentDetail" class="">
+                    <h2 class="center">Adjustment Detail</h2>
+                    <div>
+                        <table class="dataTable">
+                            <thead>
+                                <tr>
+                                    <th class="">Group Code</th>
+                                    <th class="">Reason Code</th>
+                                    <th class="">Description</th>
+                                    <th class="">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody class="scrollContent">
+                                <tr ng-repeat="adjustment in adjust" >
+                                    <td class="">{{adjustment.groupCode}}</td>
+                                    <td class="">{{adjustment.reasonCode}}</td>
+                                    <td class="">{{adjustment.explanation}}</td>
+                                    <td class="">{{adjustment.adjustment}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+                </div>
+            </div>
+        </form>
+    </div><!-- end #modal -->
+  </div><!-- end #EOB -->
+</div>
+<!-- END OVERLAY -->

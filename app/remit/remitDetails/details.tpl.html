@@ -1,0 +1,66 @@
+<div>
+    <div id="alert" class="error" ng-hide="!error">
+        <div class="alert alert-error">
+            {{errormessage}}
+        </div>
+    </div>      
+    <div id="remitDetails" class="border-pod">
+        <div class="contentHeaderSpan"> <div app-bread-crumb></div> </div>
+        <div class="expandableSection">
+            <span class="collapse_{{remitCollapsed}}" ng-click="remitCollapsed = !remitCollapsed"></span><h2>Remit Details</h2> 
+        </div>   
+        <div class="collapseSection" collapse="remitCollapsed" >
+            <div class="column4">
+                <h6>Provider Information</h6>
+                <div>
+                    <ul>
+                        <li>Submitter ID: <span>{{remitInfo.submitterID}}</span></li>
+                        <li>Submitter Name: <span>{{remitInfo.submitterName}}</span></li>
+                        <li>Billing Provider Name: <span>{{remitInfo.billingProviderName}}</span></li>
+                        <li>Billing Provider ID: <span>{{remitInfo.billingProviderID}}</span></li>
+                        <li>Billing Provider Tax ID: <span>{{remitInfo.billingProviderTaxID}}</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="column4">
+                <h6>Payer Information</h6>
+                <div>
+                    <ul>
+                        <li>Payer Name: <span>{{remitInfo.payorName}}</span></li>
+                        <li>Payer ID: <span>{{remitInfo.payorID}}</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="column4">
+                <h6>Remittance Information</h6>
+                <div>
+                    <ul>
+                        <li>Check/EFT Number: <span>{{remitInfo.checkNumber}}</span></li>
+                        <li>Effective Date: <span>{{remitInfo.checkDate | date:'MM/dd/yyyy'}}</span></li>
+                        <li>Payment Type: <span>{{remitInfo.paymentType}}</span></li>
+                        <li>Payer Trace #: <span>{{remitInfo.payerTraceNumber}}</span></li>
+                        <li>Reassociation Trace #: <span>{{remitInfo.transactionBillingID}}</span></li>
+                        <li>Amount: <span>${{remitInfo.checkAmount}}</span></li>
+                        <li>Total Claims: <span>{{remitInfo.totalClaims}}</span></li>
+                        <li>Received Date: <span>{{remitInfo.receivedDate | date:'MM/dd/yyyy'}}</span></li>
+                        <li>Processed Date: <span>{{remitInfo.processDate | date:'MM/dd/yyyy'}}</span></li>
+                        <li>Processed Code: <span>{{remitInfo.processCode}}</span></li>
+                    </ul>
+            </div>
+            </div>
+            <div class="column4 grid">
+                    <h6>Remit Adjustments</h6>
+                    <div>
+                        <div id="remitAdjustments" class="gridStyle" ng-grid="gridAdjustments"></div>
+                    </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="expandableSection ">
+            <span class="collapse_{{claimCollapsed}}" ng-click="claimCollapsed = !claimCollapsed"></span><h2>Claim Details</h2> 
+        </div>
+        <div class="collapseSection" collapse="claimCollapsed">
+            <div id="claimResultsGrid" class="gridStyle" ng-grid="gridRemitClaims"></div>
+        </div>
+    </div> <!-- end #remitDetails -->      
+</div>

@@ -1,0 +1,141 @@
+<div>
+    <div id="alert" class="error" ng-hide="!errormessage">
+        <div class="alert alert-error" >
+            {{errormessage}}
+        </div>
+    </div>
+    <div id="remitPaymentDetails" class="border-pod progress-bar-container">
+        <div class="contentHeaderSpan"> <div app-bread-crumb></div> </div>
+        <div class="section">
+            <h2>Claim Information</h2>
+        </div>
+        <div class="row-fluid">
+            <div app-progress-bar ng-show="remPayDetail.active()"></div>
+        </div>
+        <div>
+            <div class="column3">
+                <ul class="centerList">
+                    <li>RelayHealth Assigned Claim ID: <span>{{claimPaymentDtls.claimInformation.claim.relayHealthAssignedClaimId}}</span></li>
+                    <li>Provider Claim ID: <span>{{claimPaymentDtls.claimInformation.claim.submitterAssignedClaimID}}</span></li>
+                    <li>Patient Account Number: <span>{{claimPaymentDtls.claimInformation.claim.patientAccountNumber}}</span></li>
+                </ul>
+            </div>
+            <div class="column3">
+                <ul class="centerList">
+                    <li>Patient Last Name: <span>{{claimPaymentDtls.claimInformation.claim.patientLast}}</span></li>
+                    <li>Patient Middle Name: <span>{{claimPaymentDtls.claimInformation.claim.patientMiddle}}</span></li>
+                    <li>Patient First Name: <span>{{claimPaymentDtls.claimInformation.claim.patientFirst}}</span></li>
+                    <li>Insured ID: <span>{{claimPaymentDtls.claimInformation.claim.patientInsuredID}}</span></li>
+                </ul>
+            </div>
+            <div class="column3">
+                <ul class="centerList">
+                    <li>Total Charge: <span>${{claimPaymentDtls.claimInformation.claim.chargeAmount}}</span></li>
+                    <li>Payment Amount: <span>${{claimPaymentDtls.claimInformation.claim.paidAmount}}</span></li>
+                    <li>Patient Responsibility: <span>${{claimPaymentDtls.claimInformation.claim.patientAmount}}</span></li>
+                    <li> &nbsp <span> </span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="blue-line clearfix"></div>
+        <div class="btnBar clearfix"> <button class="rhButton pull-right" ng-click="openEOBModal()">View EOB</button> <button class="rhButton pull-right" ng-click="gotoClaim(claimPaymentDtls.claimInformation.claim.relayHealthAssignedClaimId)">Go To Claim</button></div>
+        <div class="clearfix" style="margint-top: -10px; padding: 0 0 6px 20px;"> <div class="pull-left"> Payment Reconciliation </div> </div>
+
+        <div class="expandableSection">
+            <span class="collapse_{{claimCollapsed}}" ng-click="claimCollapsed = !claimCollapsed"></span><h2>{{claimNo}}Claim Adjustments</h2>
+        </div>
+        <div class="collapseSection" collapse="claimCollapsed" >
+
+            <table class="adj-tbl table table-striped">
+                <thead class="mbold">
+                <tr>
+                    <td>Group Code</td>
+                    <td>Reason Code</td>
+                    <td>Explanation</td>
+                    <td>Adjustment</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="adjustment in claimPaymentDtls.claimAdjustments" >
+                    <td>{{adjustment.groupCode}}</td>
+                    <td>{{adjustment.reasonCode}}</td>
+                    <td>{{adjustment.explanation}}</td>
+                    <td>${{adjustment.adjustment}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="clearfix" style="height: 20px;"></div>
+
+        <div class="section">
+            <h2>Service Payment Information</h2>
+        </div>
+        <div>
+
+            <table class="adj-tbl-in table table-striped">
+                <thead class="mbold">
+                <tr>
+                    <td>
+                        <div class="pull-left" style="width: 40px; height: 24px;"> <span class="aa collapse_{{allLinesCollapsed}}" ng-click="collapseAll()"></span> </div>
+                        <div class="pull-left" style="width: 134px;">Line #</div>
+                        <div class="pull-left" style="width: 140px;">Service From Date</div>
+                        <div class="pull-left" style="width: 140px;">Service To Date</div>
+                        <div class="pull-left" style="width: 140px;">Procedure Code</div>
+                        <div class="pull-left" style="width: 120px;">Charges</div>
+                        <div class="pull-left" style="width: 120px;">Paid</div>
+                        <div class="pull-left" style="width: 120px;">Adjustment</div>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="svcLine in claimPaymentDtls.serviceLineAdjustments" >
+                    <td style="padding-left: 0px; padding-right: 0px;">
+                        <div class="clearfix" style="height: 24px;">
+                            <div class="pull-left" style="width: 40px; height: 20px;"><span class="aa collapse_{{svcLine.collapsed}}" ng-click="svcLine.collapsed = !svcLine.collapsed"></span></div>
+                            <div class="pull-left" style="width: 134px;">{{svcLine.lineNumber}}</div>
+                            <div class="pull-left" style="width: 140px;">{{svcLine.serviceFrom}}</div>
+                            <div class="pull-left" style="width: 140px;">{{svcLine.serviceThrough}}</div>
+                            <div class="pull-left" style="width: 140px;">{{svcLine.procedure}}</div>
+                            <div class="pull-left" style="width: 120px;">${{svcLine.charge}}</div>
+                            <div class="pull-left" style="width: 120px;">${{svcLine.paid}}</div>
+                            <div class="pull-left" style="width: 120px;">${{svcLine.adjustment}}</div>
+                        </div>
+                        <div class="collapseSection" collapse="svcLine.collapsed" style="padding:0;">
+
+                            <table class="adj-tbl table table-striped">
+                                <thead class="mbold">
+                                <tr>
+                                    <td style="width: 40px;"></td>
+                                    <td style="width: 134px;">Group Code</td>
+                                    <td style="width: 140px;">Reason Code</td>
+                                    <td>Explanation</td>
+                                    <td style="width: 120px;">Adjustment</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="lineAdjust in svcLine.lineAdjustments" >
+                                    <td></td>
+                                    <td>{{lineAdjust.groupCode}}</td>
+                                    <td>{{lineAdjust.reasonCode}}</td>
+                                    <td>{{lineAdjust.explanation}}</td>
+                                    <td>${{lineAdjust.adjustment}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="clearfix" style="height: 20px;"></div>
+
+    </div>
+
+</div>
