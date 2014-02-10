@@ -56,6 +56,9 @@ angular.module('services.gridService', [
                     var template;
 
                     template = '<div class="ngHeaderSortColumn {{col.headerClass}} filter" ng-style="{\'cursor\': col.cursor}" ng-class="{\'ngSorted\': !noSortVisible }">'+
+                            '<div ng-click="col.sort($event)" ng-class="\'colt\' + {{col.index}}" class="ngHeaderText">{{col.displayName}}</div>'+
+                            '<div class="ngSortButtonDown" ng-show="col.showSortButtonDown()"></div>'+
+                            '<div class="ngSortButtonUp" ng-show="col.showSortButtonUp()"></div>'+
                         '</div>'+
                         '<input ng-hide="col.colDef.hideFilter" type="text" ng-click="stopClickProp($event)" placeholder="Filter by {{col.displayName}}" ng-model="col.filterText" ng-style="{ \'width\' : col.width - 14 + \'px\' }"/>'+
                         '<div ng-show="col.resizable" class="ngHeaderGrip" ng-click="col.gripClick($event)" ng-mousedown="col.gripOnMouseDown($event)"></div>';
