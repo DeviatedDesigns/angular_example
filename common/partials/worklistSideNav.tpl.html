@@ -1,0 +1,54 @@
+<!-- sidenavigation -->
+        <div id="sidenav">
+            <h2 class="worklistTitle">{{sidebarTitle}}</h2>
+            <ul>
+                <li id="link1" class="activelinkstyle" ui-route="/worklist/summary" ng-class="{active:$uiRoute}">
+                    <a href="#/worklist/summary"  ng-class="{active:$uiRoute}">All Claims <span class="total">({{workListData.workListTotals.totalClaims}})</span></a>
+                </li>
+                <hr class="hrclass" />
+                <li id="link3" ui-route="/worklist/incomplete" ng-class="{active:$uiRoute}" >
+                    <a href="#/worklist/incomplete">Incomplete Claims <span class="total">({{workListData.workListTotals.incompleteClaims}})</span></a>
+                </li>
+                <hr class="hrclass" />
+                <li id="link5" ui-route="/worklist/denied" ng-class="{active:$uiRoute}" >
+                    <a href="#/worklist/denied">Denied Claims <span class="total">({{workListData.workListTotals.deniedClaims}})</span></a>
+                </li>
+                <hr class="hrclass" />
+                <li id="link4" ui-route="/worklist/rejected" ng-class="{active:$uiRoute}">
+                    <a href="#/worklist/rejected">Rejected Claims <span class="total">({{workListData.workListTotals.rejectedClaims}})</span></a>
+                </li>
+                <hr class="hrclass" />
+                <li id="link6" ui-route="/worklist/submitted" ng-class="{active:$uiRoute}" >
+                    <a href="#/worklist/submitted">No Response  <span class="total">({{workListData.workListTotals.submittedNoResponse}})</span></a>
+                </li>
+                </ul>
+                <div class="sidenavbottom">
+                    <ul>
+                        <li id="link2" ui-route="/worklist/enrollment" ng-class="{active:$uiRoute}">
+                            <a href="#/worklist/enrollment">Enroll in Progress <span class="total">({{workListData.workListTotals.enrollmentInProgress}})</span></a>
+                        </li>
+                        <hr class="hrclass" />
+                        <li id="link7" ui-route="/worklist/myfollowup" ng-class="{active:$uiRoute}" >
+                           <a href="#/worklist/myfollowup">My Follow-up  <span class="total">({{workListData.workListTotals.myFollowUpClaims}})</span></a>
+                        </li>
+                    </ul>
+               </div>
+            <div class="sidenavbottom">
+                <ul>
+                    <li>
+                        <div>
+                            <p>Search My Worklist</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="helpbox">
+                 <h2>Help Box</h2>
+                 <app-chat>
+                    <img src="assets/images/needhelpbutton1.png" alt='Click for Live Chat'>
+                 </app-chat>
+                 <a class="support-link" href="#/support-ticket/create"><img src="assets/images/openticketbutton1.png" alt='Click to open a support ticket'></a>
+            </div>
+
+        </div>
+<!-- end #sidenav -->

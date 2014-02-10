@@ -5,7 +5,8 @@ angular.module( 'ambProvPrivate.worklist.summary', [
         'ui.bootstrap',
         'ngGrid',
         'ui.event',
-        'directives.dynamic.dynamic'
+        'directives.dynamic.dynamic',
+        'services.gridService'
     ])
 
     .config(function config( $stateProvider ) {
@@ -208,7 +209,7 @@ angular.module( 'ambProvPrivate.worklist.summary', [
             columnDefs : colDefs,
             rowHeight: 70,
             enableColumnResize : true,
-            plugins: [filterBarPlugin],
+            plugins: [gridService.plugins.columnHeaderSearchFilter],
             sortInfo:{ fields: ['status'], directions: ['asc'] },
             headerRowHeight: 45, // give room for filter bar
             rowTemplate:    '<div ng-style="{ \'cursor\': row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-style="{height: rowHeight-10}">' + 
